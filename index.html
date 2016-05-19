@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Weekend Challenge 01</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <script src="jquery-1.12.3.min.js"></script>
+    <script src="app.js"></script>
+
+    <body>
+      <div class="container">
+        <h1>jQuery Weekend Challenge</h1>
+        <div class="formfield">
+            <form id="employeeinfo" class="form-horizontal">
+              <div class="row">
+              <div class="col-sm-6">
+              <div class="form-group">
+                <label for="employeefirstname" class="col-sm-4 control-label">First Name:</label>
+                <div class="col-sm-8">
+                <input required type="text" class="form-control" id="employeefirstname" name="employeefirstname" placeholder="Jane" />
+              </div>
+              </div>
+              <div class="form-group">
+                <label for="employeelastname" class="col-sm-4 control-label">Last Name:</label>
+                <div class="col-sm-8">
+                  <input required type="text" class="form-control" id="employeelastname" name="employeelastname" placeholder="Doe" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="employeeID" class="col-sm-4 control-label">ID#:</label>
+                <div class="col-sm-8">
+                  <input required type="text" class="form-control" id="employeeID" name="employeeID" placeholder="2430" />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="employeetitle" class="col-sm-4 control-label">Job Title:</label>
+                <div class="col-sm-8">
+                  <input required type="text" class="form-control" id="employeetitle" name="employeetitle" placeholder="Junior Developer" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="employeesalary" class="col-sm-4 control-label">Salary:</label>
+                <div class="col-sm-8">
+                  <input required type="number" min="0" class="form-control" id="employeesalary" name="employeesalary" placeholder="65000" />
+                </div>
+              </div>
+            </div>
+              </div>
+              <input required class="btn btn-default" type="submit" value="Submit Employee!" />
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>ID#</th>
+                    <th>Title</th>
+                    <th colspan="2">Salary</th>
+                </tr>
+            </thead>
+            <tbody class="employeecontainer">
+
+            </tbody>
+        </table>
+        <div class="salarycontainer">
+        </div>
+      </div>
+    </body>
+</head>
+
+</html>

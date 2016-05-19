@@ -1,0 +1,17 @@
+body{
+  padding-top: 40px;
+}
+.employeecontainer{
+  border-width: 1px;
+  border-style: solid;
+}
+.empCell{
+  border-width: 1px;
+  border-style: solid;
+}
+.delbtn{
+  border-width:1px;
+  border-style:solid;
+  background-color: indigo;
+  color:#fff;
+}
