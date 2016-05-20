@@ -81,14 +81,6 @@ $.ajax({
 });
 }
 
-//This function lowers the global total salary.
-function lowerSalary(empInfo){
-
-	//The salary that needs to be removed is fetched, and the $ sign in front is cut off with a substring, and then converted to a number. The salary is then updated.
-  var employeeSalary = Number(empInfo.substring(1));
-  totalSalary = Math.round(totalSalary-(employeeSalary/12));
-  updateSalary();
-}
 //This function updates the total salary that is displayed on the screen. The actual calculations are handled in lowerSalary and addSalary.
 function updateSalary(){
   $('.salary').remove();
