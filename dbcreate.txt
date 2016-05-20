@@ -1,0 +1,7 @@
+CREATE TABLE employees
+(
+id SERIAL PRIMARY KEY,
+firstname varchar(30),
+lastname varchar(30),
+jobtitle varchar(30),
+salary integer);
