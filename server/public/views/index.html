@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Weekend Challenge 01</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/styles/stylesheet.css" />
+    <script src="../assets/vendors/jquery-1.12.3.min.js"></script>
+    <script src="../scripts/clientapp.js"></script>
+
+    <body>
+      <div class="container">
+        <h1>jQuery Weekend Challenge</h1>
+
+            <form id="employeeinfo" class="form-horizontal">
+
+                <label for="firstname" class="col-sm-4 control-label">First Name:</label>
+                <input required type="text" class="form-control" id="firstname" name="firstname" placeholder="Jane" />
+
+                <label for="lastname" class="col-sm-4 control-label">Last Name:</label>
+                  <input required type="text" class="form-control" id="lastname" name="lastname" placeholder="Doe" />
+
+
+                <label for="jobtitle" class="col-sm-4 control-label">Job Title:</label>
+                  <input required type="text" class="form-control" id="jobtitle" name="jobtitle" placeholder="Junior Developer" />
+
+                <label for="salary" class="col-sm-4 control-label">Salary:</label>
+                  <input required type="number" min="0" class="form-control" id="salary" name="salary" placeholder="65000" />
+
+              <input required class="btn btn-default" type="submit" value="Submit Employee!" />
+            </form>
+
+
+            <div class="employeecontainer row">
+
+            </div>
+        <div class="salarycontainer">
+        </div>
+      </div>
+    </body>
+</head>
+
+</html>

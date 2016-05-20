@@ -1,0 +1,26 @@
+{
+  "name": "weekend01thesequel",
+  "version": "1.0.0",
+  "description": "This program will take in employee data and display it in the DOM in a table format. It will display a total monthly salary for employees, and allows the user to delete employees as needed which will also update the total monthly salary.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apeloza/weekend01sequel.git"
+  },
+  "author": "Anthony Peloza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apeloza/weekend01sequel/issues"
+  },
+  "homepage": "https://github.com/apeloza/weekend01sequel#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.4",
+    "pg": "^4.5.5"
+  }
+}
