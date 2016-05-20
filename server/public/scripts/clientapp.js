@@ -2,75 +2,112 @@ var totalSalary= 0;
 
 $(document).ready(function(){
 
-//Combined monthly salary is initialized as a global variable
+//Employees are fetched from the database and appended to the DOM.
 addEmployees();
-//jQuery waits for the user to submit employee information. When they do, it produces a new Object of that employee.
+
+//Event handlers are initialized to handle submitting information, as well as activating/de-activating employees.
 $('#employeeinfo').on('submit', postEmployee);
-$('.employeecontainer').on('click', '.active', deactivateEmployee);
+$('.employeecontainer').on('click', '#true', deactivateEmployee);
+$('.employeecontainer').on('click', '#false', activateEmployee);
 
 });
+
 //This function adds employees to the DOM from the database.
 function addEmployees(){
+
+  //The container is emptied before we call with ajax.
   $('.employeecontainer').empty();
   $.ajax({
     type:'GET',
     url:'/employees',
     success: function(employees) {
-      totalSalary = 0;
-    console.log(employees);
-    employees.forEach(function (employee) {
-      console.log(employee);
-      $container = $('<div></div>');
-totalSalary += Math.round(employee.salary/12);
-updateSalary();
 
-      //fields I want to edit
-      var employeeProperties = ['fullname', 'jobtitle','salary' ];
+      //totalSalary is reset
+      totalSalary = 0;
+
+      //This iterates over each employee row and then appends the information to the DOM.
+    employees.forEach(function (employee) {
+      $container = $('<div></div>');
+      var employeeProperties = ['fullname', 'jobtitle','salary'];
       employeeProperties.forEach(function (prop){
         var $el = $('<input type="text" id="' + prop + '" />');
         $el.val(employee[prop]);
         $container.append($el);
       });
       $container.attr('id', employee.id);
-      $container.append('<button class="active">De-activate</button>');
+
+      //This will increment salary only if the employee is active.
+      if(employee.active === true){
+        totalSalary += Math.round(employee.salary/12);
+
+//A button is added that states whether the employee is active or inactive.
+      $container.append('<button id="' + employee.active + '">Active!</button>');
+    } else {
+      $container.append('<button id="' + employee.active + '">Inactive!</button>');
+    }
+
+    //Everything is appended to the DOM, and then monthly salary is appended to the DOM with updateSalary().
       $('.employeecontainer').append($container);
+      updateSalary();
       });
+
 //All relevant fields are cleared to await further input.
   $('#employeeinfo').find('input[type=text]').val('');
   $('#employeeinfo').find('input[type=number]').val('');
 }
 });
 }
+
+//This function de-activates an employee with a put request.
 function deactivateEmployee(){
-  console.log("Fired de-activate");
   var employeeID = getemployeeID($(this));
 $.ajax({
   type:'PUT',
-  url:'/employees/' + employeeID,
-  success:function(data){
-    console.log("Successfully de-activated!");
+  url:'/employees/true/' + employeeID,
+  success:function(){
+
+    //Employees are re-called with the updated information.
     addEmployees();
   }
 });
 }
+
+//This function activates an employee with a put request.
+function activateEmployee(){
+  var employeeID = getemployeeID($(this));
+  $.ajax({
+    type:'PUT',
+    url:'/employees/false/' + employeeID,
+    success:function(){
+
+      //Employees are re-called with the updated information.
+      addEmployees();
+    }
+  });
+}
+
+//This function adds employees to the database with a post request.
 function postEmployee(event){
   event.preventDefault();
+
+  //An empty Object is created and then the values in the form fields are stored in it.
   var employee = {};
   $.each($('#employeeinfo').serializeArray(), function(i, field) {
     employee[field.name] = field.value;
-    console.log(employee[field.name]);
   });
-  console.log(employee);
   $.ajax({
     type: 'POST',
     url:'/employees',
     data: employee,
     success: function(data) {
-      console.log("Successful post");
+
+      //Employees are re-called with updated information.
       addEmployees();
     }
   });
  }
+
+ //This function fetches an employee's ID, associated with the button pressed.
  function getemployeeID(button){
    var employeeID = $(button).parent().attr('id');
  return employeeID;
@@ -83,13 +120,14 @@ $.ajax({
   type:'DELETE',
   url:'/employees/' + employeeID,
   success: function(data){
-    console.log("Successful delete");
+
+    //Employees are re-called with updated information.
     addEmployees();
   }
 });
 }
 
-//This function updates the total salary that is displayed on the screen. The actual calculations are handled in lowerSalary and addSalary.
+//This function updates the total salary that is displayed on the screen.
 function updateSalary(){
   $('.salary').remove();
   $('.salarycontainer').append('<p class="salary">Total Monthly Salary: $' + totalSalary + '</p>');
