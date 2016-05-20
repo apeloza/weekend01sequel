@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
             res.sendStatus(500);
         }
 
-        client.query("SELECT firstname || ' ' || lastname AS fullname, jobtitle, salary, id FROM employees GROUP BY firstname, lastname, jobtitle, salary, id;", function(err, result) {
+        client.query("SELECT firstname || ' ' || lastname AS fullname, jobtitle, salary, id FROM employees WHERE active = true GROUP BY firstname, lastname, jobtitle, salary, id;", function(err, result) {
             done();
 
             console.log(result.rows);
@@ -59,5 +59,22 @@ router.delete('/:id', function(req, res) {
 
             });
     });
+});
+router.put('/:id', function (req, res) {
+  var employeeID = req.params.id;
+  pg.connect(connectionString, function(err, client, done) {
+      if (err) {
+          res.sendStatus(500);
+      }
+      client.query('UPDATE employees set active = false WHERE id = $1', [employeeID],
+      function (err, result){
+          done();
+          if (err) {
+              res.sendStatus(500);
+              return;
+          }
+          res.sendStatus(201);
+    });
+  });
 });
 module.exports = router;

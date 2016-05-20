@@ -6,7 +6,7 @@ $(document).ready(function(){
 addEmployees();
 //jQuery waits for the user to submit employee information. When they do, it produces a new Object of that employee.
 $('#employeeinfo').on('submit', postEmployee);
-$('.employeecontainer').on('click', '.delete', deleteEmployee);
+$('.employeecontainer').on('click', '.active', deactivateEmployee);
 
 });
 //This function adds employees to the DOM from the database.
@@ -32,8 +32,7 @@ updateSalary();
         $container.append($el);
       });
       $container.attr('id', employee.id);
-      $container.append('<button class="update">Update</button>');
-      $container.append('<button class="delete">Delete</button>');
+      $container.append('<button class="active">De-activate</button>');
       $('.employeecontainer').append($container);
       });
 //All relevant fields are cleared to await further input.
@@ -42,7 +41,18 @@ updateSalary();
 }
 });
 }
-
+function deactivateEmployee(){
+  console.log("Fired de-activate");
+  var employeeID = getemployeeID($(this));
+$.ajax({
+  type:'PUT',
+  url:'/employees/' + employeeID,
+  success:function(data){
+    console.log("Successfully de-activated!");
+    addEmployees();
+  }
+});
+}
 function postEmployee(event){
   event.preventDefault();
   var employee = {};
@@ -68,8 +78,6 @@ function postEmployee(event){
 
 //This function deletes an employee's name from the database.
 function deleteEmployee(){
-  console.log("Yep");
-  console.log($(this).parent());
   var employeeID = getemployeeID($(this));
 $.ajax({
   type:'DELETE',
